@@ -10,5 +10,6 @@ MarkupSafe==1.0
 python-dateutil==2.6.1
 pytz==2017.2
 s3transfer==0.1.10
+simplejson==3.11.1
 six==1.10.0
 Werkzeug==0.12.2

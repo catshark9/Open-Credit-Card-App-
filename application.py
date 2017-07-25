@@ -3,13 +3,9 @@ import os
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import json
+import simplejson
 import decimal
-
-
-TABLE_NAME = 'CurrentValues'
-REGION = "us-east-2"
-ACCESS_KEY = 'AKIAIBDUUPJK5BAHMYRQ'
-SECRET_KEY = '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'
+from keys import TABLE_NAME, ACCESS_KEY, SECRET_KEY, REGION
 
 dynamodb = boto3.resource('dynamodb', region_name=REGION, aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
 
@@ -133,20 +129,20 @@ def filter():
     return(render_template('index.html',cards=CurrentValue,t=title,h=heading, programs=programs, issuers=issuers, type=type, program=program, issuer=issuer))
 
 
-
 @application.route("/CurrentCards/CurrentValue", methods=['GET'])
 def CurrentCards_CurrentValue():
     CurrentValue = table.scan()
     CurrentValue = CurrentValue['Items']
     CurrentValue.sort(key=lambda x: x['Value'], reverse=True)
+    response = simplejson.dumps(CurrentValue)
+    return(response)
 
-    return(CurrentValue)
 
 # run the app.
 if __name__ == "__main__":
     # Setting debug to True enables debug output. This line should be
     # removed before deploying a production app.
-    #application.debug = True
+    application.debug = True
     application.run()
 
 
