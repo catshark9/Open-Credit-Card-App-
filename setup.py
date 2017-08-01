@@ -7,9 +7,7 @@ import boto3
 
 
 TABLE_NAME = 'CurrentValues'
-REGION = "us-east-2"
-ACCESS_KEY = 'AKIAIBDUUPJK5BAHMYRQ'
-SECRET_KEY = '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'
+
 
 dynamodb = boto3.resource('dynamodb', region_name=REGION, aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
 table = dynamodb.Table(TABLE_NAME)
